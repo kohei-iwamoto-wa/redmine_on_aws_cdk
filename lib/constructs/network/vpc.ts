@@ -2,9 +2,9 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
-interface RedminVpcProps {}
+interface RedmineVpcProps {}
 
-export class RedminVpc extends Construct {
+export class RedmineVpc extends Construct {
   public readonly vpc: ec2.Vpc;
     public readonly s3Endpoint?: ec2.GatewayVpcEndpoint;
     public readonly ssmEndpoint?: ec2.InterfaceVpcEndpoint;
@@ -15,12 +15,12 @@ export class RedminVpc extends Construct {
     public readonly logsEndpoint?: ec2.InterfaceVpcEndpoint;
     public readonly ec2MessagesEndpoint?: ec2.InterfaceVpcEndpoint;
 
-  constructor(scope: Construct, id: string, props: RedminVpcProps) {
+  constructor(scope: Construct, id: string, props: RedmineVpcProps) {
     super(scope, id);
 
     // --- VPC ---
-    this.vpc = new ec2.Vpc(this, 'RedminVPC', {
-        vpcName: 'RedminVPC',
+    this.vpc = new ec2.Vpc(this, 'RedmineVPC', {
+        vpcName: 'RedmineVPC',
         ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
         natGateways: 1, 
         subnetConfiguration: [
@@ -37,11 +37,6 @@ export class RedminVpc extends Construct {
             {
                 cidrMask: 24,
                 name: 'DB',
-                subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
-            },
-            {
-                cidrMask: 24,
-                name: 'Storage',
                 subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
             }
         ],

@@ -1,11 +1,14 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { RedminVpc } from '../constructs/network/vpc';
+import { RedmineVpc } from '../constructs/network/vpc';
+import { RedmineEfs } from '../constructs/storage/efs';
 
-
-export class RedminOnAwsCdkStack extends cdk.Stack {
+export class RedmineOnAwsCdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-    const vpc = new RedminVpc(this, 'RedminVPC', {});
+    const vpc = new RedmineVpc(this, 'RedmineVPC', {});
+    const efs = new RedmineEfs(this, 'RedmineEFS', {
+      vpc: vpc.vpc,
+    });
   }
 }
