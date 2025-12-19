@@ -40,7 +40,7 @@ export class RedmineVpc extends Construct {
                 subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
             }
         ],
-        maxAzs: 2 // 2つのAZに展開
+        maxAzs: 2
     });
 
     // --- VPC Endpoints ---
