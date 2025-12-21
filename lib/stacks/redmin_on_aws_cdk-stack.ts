@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import { RedmineVpc } from '../constructs/network/vpc';
 import { RedmineEfs } from '../constructs/storage/efs';
 import { RedmineAurora } from '../constructs/database/aurora';
+import { RedmineEKS } from '../constructs/container/eks';
 
 export class RedmineOnAwsCdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -24,7 +25,13 @@ export class RedmineOnAwsCdkStack extends cdk.Stack {
     // 4. リソース間の連携（依存関係や通信許可）
     // this.configureInteractions(network, storage, database);
 
-    // 5. 必要な情報の出力
+    // 5. アプリケーション層の作成
+    const app = new RedmineEKS(this, 'RedmineApp', {
+      vpc: network.vpc
+    });
+
+
+    // 6. 必要な情報の出力
     this.createOutputs(database);
   }
 
